@@ -29,7 +29,7 @@ public class Config {
     @SubscribeEvent
     public static void onConstructModEvent(final FMLConstructModEvent event) {
         final ModLoadingContext context = ModLoadingContext.get();
-        context.registerConfig(ModConfig.Type.COMMON, SPEC);
+        context.registerConfig(ModConfig.Type.SERVER, SPEC);
     }
 
     @SubscribeEvent

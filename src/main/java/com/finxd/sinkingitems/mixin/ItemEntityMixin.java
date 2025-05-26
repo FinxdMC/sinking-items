@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,14 +21,12 @@ public abstract class ItemEntityMixin extends Entity{
 
     @Inject(method = "setUnderwaterMovement", at = @At("HEAD"), cancellable = true)
     private void setUnderwaterMovement(CallbackInfo ci) {
-        if (!getCommandSenderWorld().isClientSide) {
-            if (Config.ENABLE_MOD.get().equals(true)) {
-                if (Config.SLOW_SINKING.get().equals(true)) {
-                    this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.001D, 0.0D));
-                }
-                else {
-                    this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
-                }
+        if (Config.ENABLE_MOD.get().equals(true)) {
+            if (Config.SLOW_SINKING.get().equals(true)) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.001D, 0.0D));
+            }
+            else {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
             }
         }
     }
